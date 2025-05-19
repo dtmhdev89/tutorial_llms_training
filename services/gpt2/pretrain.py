@@ -1,8 +1,8 @@
 import os
 from dotenv import load_dotenv
 load_dotenv(dotenv_path=os.environ.get("ENV_FILE_PATH"))
-from tutorial_llms_training.serivces.gpt2.data_loader import DataLoader
-from tutorial_llms_training.serivces.gpt2.tokenizer_builder import TokenizerBuilder
+from tutorial_llms_training.services.gpt2.data_loader import DataLoader
+from tutorial_llms_training.services.gpt2.tokenizer_builder import TokenizerBuilder
 from tutorial_llms_training.models.gpt2.lm_head_model import LmHeadModel
 from transformers import Trainer, TrainingArguments, DataCollatorForLanguageModeling
 
