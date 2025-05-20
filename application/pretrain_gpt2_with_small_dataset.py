@@ -1,3 +1,4 @@
+import os
 from tutorial_llms_training.services.gpt2.pretrain import Pretrain
 from tutorial_llms_training.services.gpt2.inference import Inference
 import argparse
@@ -30,6 +31,7 @@ if __name__ == "__main__":
     args = sys_parser.parse_args()
 
     if args.train:
+        os.environ["WANDB_DISABLED"] = "true"
         Pretrain.perform()
 
     if args.inference:
