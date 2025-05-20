@@ -38,6 +38,11 @@ class TokenizerBuilder:
         if vocab_size is None:
             vocab_size = TokenizerBuilder.VOCAB_SIZE.get("gpt2")
 
+        save_path = os.path.join("data_sources", "gpt_tokenizer.json")
+        if os.path.exists(save_path):
+            print("Already had the vocab file gpt_tokenizer.json")
+            return save_path
+
         tokenizer = Tokenizer(BPE())
         tokenizer.pre_tokenizer = ByteLevel()
         tokenizer.normalizer = NFKC()
@@ -52,8 +57,6 @@ class TokenizerBuilder:
             dataset["train"]["text"],
             trainer
         )
-
-        save_path = os.path.join("data_sources", "gpt_tokenizer.json")
 
         tokenizer.save(save_path)
 
@@ -106,7 +109,7 @@ class TokenizerBuilder:
         result = {
             k: [
                 concatenated[k][i: i + block_size]
-                for i in range(0, total_length, block_size())
+                for i in range(0, total_length, block_size)
             ]
             for k in concatenated
         }
