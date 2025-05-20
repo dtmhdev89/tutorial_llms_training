@@ -83,9 +83,18 @@ class Pretrain:
             data_collator=data_collator
         )
 
+        print("------------delete some variable for saving memory")
+
+        del dataset
+        print("------------Perform training")        
+
         trainer.train()
 
-        trainer.push_to_hub(
-            commit_message="Training complete",
-            token=os.environ.get("HF_TOKEN")
-        )
+        print("------------Start push to hub")
+        try:
+            trainer.push_to_hub(
+                commit_message="Training complete",
+                token=os.environ.get("HF_TOKEN")
+            )
+        except Exception as e:
+            print(f"----Error push to hub: {e}")
