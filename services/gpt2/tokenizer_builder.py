@@ -66,6 +66,14 @@ class TokenizerBuilder:
     def pretrain_tokenizer(vocab_path):
         """Pretrain Tokenizer"""
 
+        save_path = os.path.join("data_sources", "gpt-tokenizer")
+
+        if os.path.exists(os.path.join(save_path, "tokenizer.json")):
+            print(f"Loading tokenizer from {save_path}")
+            tokenizer = PreTrainedTokenizerFast.from_pretrained(save_path)
+
+            return tokenizer, save_path
+
         tokenizer = PreTrainedTokenizerFast(
             tokenizer_file=vocab_path
         )
@@ -74,7 +82,6 @@ class TokenizerBuilder:
             TokenizerBuilder.SPECIAL_TOKEN_MAP.get("gpt2")
         )
 
-        save_path = os.path.join("data_sources", "gpt-tokenizer")
         tokenizer.save_pretrained(save_path)
 
         return tokenizer, save_path
