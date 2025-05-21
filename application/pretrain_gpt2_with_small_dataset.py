@@ -39,5 +39,20 @@ if __name__ == "__main__":
             inference = Inference(
                 model_name=args.model_name
             )
+            tokenizer = inference.tokenizer
+            model = inference.model
+
+            decoded_ouput, encoded_output = inference.prompt(
+                "I go to"
+            )
+
+            print(tokenizer.decode(decoded_ouput[0], skip_special_tokens=True))
+
+            perplexity = inference.evaluate_with_perplexity(
+                encoded_output=encoded_output
+            )
+
+            print(f"Perplexity: {perplexity}")
+
         else:
             print("Plese specify a model name from Hugging Face")
