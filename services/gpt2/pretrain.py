@@ -55,8 +55,13 @@ class Pretrain:
             mlm=False
         )
 
+        training_output_dir = os.environ.get(
+            "TRAINING_OUTPUT_DIR",
+            "gpt-small-c4"
+        )
+
         training_args = TrainingArguments(
-            output_dir="gpt-small-c4",
+            output_dir=training_output_dir,
             logging_dir="logs",
             per_device_train_batch_size=32,
             per_device_eval_batch_size=32,

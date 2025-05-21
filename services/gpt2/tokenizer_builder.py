@@ -65,11 +65,11 @@ class TokenizerBuilder:
     @staticmethod
     def pretrain_tokenizer(vocab_path):
         """Pretrain Tokenizer"""
-
-        if os.environ.get("TOKENIZER_SAVED_PATH", None):
-            save_path = os.environ.get("TOKENIZER_SAVED_PATH")
-        else:
-            save_path = os.path.join("data_sources", "gpt-tokenizer")
+        
+        save_path = os.environ.get(
+            "TOKENIZER_SAVED_PATH",
+            os.path.join("data_sources", "gpt-tokenizer")
+        )
         
         print("----pretrain_tokenizer: Check if have saved data at: ", save_path)
 
