@@ -67,6 +67,7 @@ class TokenizerBuilder:
         """Pretrain Tokenizer"""
 
         save_path = os.path.join("data_sources", "gpt-tokenizer")
+        print("----pretrain_tokenizer: Check if have saved data at: ", save_path)
 
         if os.path.exists(os.path.join(save_path, "tokenizer.json")):
             print(f"Loading tokenizer from {save_path}")
