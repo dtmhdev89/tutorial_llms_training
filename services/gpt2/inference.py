@@ -8,8 +8,8 @@ class Inference:
 
     def __init__(self, model_name) -> None:
         self._model_name = model_name
-        self._model = AutoModelForCausalLM(model_name)
-        self._tokenizer = AutoTokenizer(model_name)
+        self._tokenizer = AutoTokenizer.from_pretrained(model_name)
+        self._model = AutoModelForCausalLM.from_pretrained(model_name)
 
     @property
     def model(self):
