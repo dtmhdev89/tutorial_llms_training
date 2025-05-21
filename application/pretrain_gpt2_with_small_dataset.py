@@ -46,7 +46,7 @@ if __name__ == "__main__":
                 "I go to"
             )
 
-            print(tokenizer.decode(decoded_ouput[0], skip_special_tokens=True))
+            print(decoded_ouput)
 
             perplexity = inference.evaluate_with_perplexity(
                 encoded_output=encoded_output
