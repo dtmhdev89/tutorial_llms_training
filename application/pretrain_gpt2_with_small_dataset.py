@@ -28,31 +28,36 @@ if __name__ == "__main__":
         help="Specify model name for inference"
     )
 
+    sys_parser.add_argument(
+        "--prompt",
+        type=str,
+        help="Specify model name for inference"
+    )
+
     args = sys_parser.parse_args()
 
     if args.train:
         os.environ["WANDB_DISABLED"] = "true"
         Pretrain.perform()
 
-    if args.inference:
-        if args.model_name:
-            inference = Inference(
-                model_name=args.model_name
-            )
-            tokenizer = inference.tokenizer
-            model = inference.model
+    if args.inference and args.model_name and args.prompt:
+        inference = Inference(
+            model_name=args.model_name
+        )
+        tokenizer = inference.tokenizer
+        model = inference.model
 
-            decoded_ouput, encoded_output = inference.prompt(
-                "I go to"
-            )
+        decoded_ouput, encoded_output = inference.prompt(
+            args.prompt
+        )
 
-            print(decoded_ouput)
+        print(decoded_ouput)
 
-            perplexity = inference.evaluate_with_perplexity(
-                encoded_output=encoded_output
-            )
+        perplexity = inference.evaluate_with_perplexity(
+            encoded_output=encoded_output
+        )
 
-            print(f"Perplexity: {perplexity}")
+        print(f"Perplexity: {perplexity}")
 
-        else:
-            print("Plese specify a model name from Hugging Face")
+    else:
+        print("Plese specify a model name from Hugging Face")
