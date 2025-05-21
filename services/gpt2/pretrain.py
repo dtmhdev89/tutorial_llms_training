@@ -86,9 +86,16 @@ class Pretrain:
         print("------------delete some variable for saving memory")
 
         del dataset
-        print("------------Perform training")        
+        
+        print("------------Perform training")
 
-        trainer.train()
+        checkpoint_path = os.environ.get("CHECKPOINT_PATH", None)
+        if os.path.exists(checkpoint_path):
+            print(f"------------Continue training from checkpoint: {checkpoint_path}")
+            trainer.train(resume_from_checkpoint=checkpoint_path)
+        else:
+            print("------------Start training from scratch")
+            trainer.train()
 
         print("------------Start push to hub")
         try:
